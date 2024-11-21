@@ -26,10 +26,7 @@ class ActiveMQ:
         self.connection = stomp.Connection([(ACTIVEMQ_HOST, ACTIVEMQ_PORT)])
 
     def connect(self):
-        print(f' ====== host: {self.host}')
-        print(f' ====== port: {self.port}')
-        print(f' ====== username: {self.username}')
-        print(f' ====== password: {self.password}')
+        print(f'host: {self.host}, port: {self.port}, username: {self.username}, password: {self.password}')
         self.connection.set_listener('', MyListener())
         self.connection.connect(self.username, self.password, wait=True)
         return self.connection

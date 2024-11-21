@@ -1,4 +1,4 @@
-from datetime import datetime
+import json
 
 from sqlalchemy import Column, Integer, String, Boolean, TIMESTAMP, text
 from pydantic import BaseModel, Field
@@ -21,8 +21,8 @@ class Post(Base):
         return self.__str__()
 
 class PostCreate(BaseModel):
-    title: str = Field(min_length=3, max_length=15)
-    content: str = Field(min_length=3, max_length=15)
+    title: str = Field(min_length=3, max_length=50)
+    content: str = Field(min_length=3, max_length=50)
 
     class Config:
         json_schema_extra = {
@@ -36,17 +36,21 @@ class PostResponse(BaseModel):
     id: int
     title: str
     content: str
-    # published: bool
-    # created_at: datetime
 
     # Enable compatibility with ORM models (e.g., SQLModel)
     model_config = {
         "from_attributes": True  # This allows attribute access from ORM objects
     }
 
-def convert_to_post(request: PostCreate) -> Post:
-    return Post(
-        id=None,
-        content=request.content,
-        title=request.title,
-    )
+def to_post(data: dict) -> Post:
+
+    return Post(title=data['title'], content=data['content'], id=None)
+
+def convert_to_post(data: str) -> Post:
+    print(f"=== {type(data)}")
+
+    # Parse the JSON string into a dictionary
+    message_data = json.loads(data)
+    print(f"=== Message parsed, type: {type(message_data)}, content: {message_data}")
+
+    return Post(title=data['title'], content=data['content'], id=None)
