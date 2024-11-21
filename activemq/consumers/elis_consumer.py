@@ -1,6 +1,6 @@
 import json
 from dao.database import SessionLocal
-from dao.model import convert_to_post
+from dao.model import convert_to_post, to_post
 from .consumer import Consumer
 
 
@@ -11,8 +11,14 @@ class ElisConsumer(Consumer):
     def process_message(self, message: str):
         print(f"Elis consumer received: {message}")
         try:
+            print(f"=== {type(message)}")
+
+            # Parse the JSON string into a dictionary
+            message_data = json.loads(message)
+            print(f"=== Message parsed, type: {type(message_data)}, content: {message_data}")
+
             # Convert dictionary to Post ORM object
-            post = convert_to_post(message_data)
+            post = to_post(message_data)
 
             session = SessionLocal()
             session.add(post)
