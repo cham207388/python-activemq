@@ -25,17 +25,17 @@ class ActiveMQ:
             self.connection.disconnect()
             self.connection = None
 
-def save_post_to_db(post: Post, db: Session):
-    try:
-        save_post = convert_to_post(post)
-        print("Saving...")
-        db.add(save_post)
-        db.commit()
-    except Exception as e:
-        print(f"Failed to save hero to database: {e}")
-
-def sanitize_post(body):
-
-    post_data = json.loads(body)  # Parse the JSON string to a dictionary
-    post = Post(**post_data) # Cast dictionary to Post
-    return post
+# def save_post_to_db(post: Post, db: Session):
+#     try:
+#         save_post = convert_to_post(post)
+#         print("Saving...")
+#         db.add(save_post)
+#         db.commit()
+#     except Exception as e:
+#         print(f"Failed to save hero to database: {e}")
+#
+# def sanitize_post(body):
+#
+#     post_data = json.loads(body)  # Parse the JSON string to a dictionary
+#     post = Post(**post_data) # Cast dictionary to Post
+#     return post

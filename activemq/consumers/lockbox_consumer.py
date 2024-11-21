@@ -1,4 +1,6 @@
 import json
+from datetime import datetime, timezone
+
 from dao.database import SessionLocal
 from ..producers.elis_producer import ElisProducer
 from .consumer import Consumer
@@ -14,7 +16,7 @@ class LockBoxConsumer(Consumer):
         try:
             # Modify the message
             message_data = json.loads(message)
-            message_data["id"] = "lockboxid"
+            message_data["timestamp"] = datetime.now(timezone.utc).strftime("%d:%m:%Y %H:%M:%S")
             modified_message = json.dumps(message_data)
 
             # Forward the modified message to /queue/elis
