@@ -3,5 +3,5 @@ variable "region" {
 }
 
 variable "subnet_id" {}
-variable "mq_username" {}
-variable "mq_password" {}
+variable "amq_username" {}
+variable "amq_password" {}
