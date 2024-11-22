@@ -5,13 +5,13 @@ active-down:
 	docker-compose down -v
 
 app:
-	uvicorn main:app --reload
+	uvicorn main-producer:app --reload
 
 producer:
-	uvicorn main:app --reload
+	uvicorn main-producer:app --reload
 
 consumer:
-	python consumer.py
+	python consumer_runner.py
 
 postgres:
 	docker container run --rm --name postgres_active -e POSTGRES_DB=activemq -e POSTGRES_USER=baicham -e POSTGRES_PASSWORD=password -p 5433:5432 -d postgres
@@ -22,5 +22,3 @@ stop-pg:
 freeze:
 	pip freeze > requirements.txt
 
-
-in-one:

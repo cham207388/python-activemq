@@ -1,25 +1,28 @@
 from typing import List
 from sqlalchemy import select
 from fastapi import FastAPI, HTTPException
+
+from activemq.producers.lockbox_producer import LockBoxProducer
 from dao.model import Post, PostResponse, PostCreate
-from producer import send_message
 from dao.database import Base, engine
 from dao.dependencies import db_dependency
 
 app = FastAPI()
 
-
 Base.metadata.create_all(bind=engine)
 print("Database initialized successfully.")
 
-@app.post("/produce/", response_model=PostResponse)
-def publish_message(post: PostCreate) -> PostResponse:
+
+lockbox_producer = LockBoxProducer()
+
+@app.post("/produce/")
+def publish_message(post: PostCreate):
     print("Publishing...")
     print(f'Request: {post}')
     json_post = post.model_dump_json()
-    send_message(json_post)
+    lockbox_producer.send_message(json_post)
     print(f"Response: {post}")
-    return PostResponse.model_validate(post)
+    return {"status","success"}
 
 
 @app.get("/posts/", response_model=List[PostResponse])
