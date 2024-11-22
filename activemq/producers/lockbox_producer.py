@@ -1,17 +1,16 @@
-from activemq.active_mq import ActiveMQ
 from .producer import Producer
 
 
 class LockBoxProducer(Producer):
-    def __init__(self):
+    def __init__(self, connection):
         super().__init__("/queue/lockbox")
-        self.active_mq = ActiveMQ()
+        self.connection = connection
 
     def send_message(self, message: str):
         try:
-            connection = self.active_mq.connect()
-            connection.send(body=message, destination=self.queue)
-            print(f"Message sent to {self.queue}: {message}")
-            connection.disconnect()
+            print(f"Sending message to {self.queue}: {message}")
+            self.connection.send(destination=self.queue, body=message)
+            print(f"Message sent to {self.queue}.")
+            self.connection.disconnect()
         except Exception as e:
             print(f"Error sending message to {self.queue}: {e}")

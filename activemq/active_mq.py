@@ -1,41 +1,64 @@
 import stomp
-import json
-from sqlalchemy.orm import Session
-
-from dao.model import Post, convert_to_post
-from utils.env_variables import ACTIVEMQ_USER, ACTIVEMQ_PASSWORD, ACTIVEMQ_PORT, ACTIVEMQ_HOST
+import ssl
+import logging
 
 
 class ActiveMQ:
-    def __init__(self):
-        self.host = ACTIVEMQ_HOST
-        self.port = ACTIVEMQ_PORT
-        self.username = ACTIVEMQ_USER
-        self.password = ACTIVEMQ_PASSWORD
+    def __init__(self, host, port, username, password, queues):
+        """
+        Initialize ActiveMQ connection details.
+        :param host: ActiveMQ host
+        :param port: ActiveMQ port
+        :param username: ActiveMQ username
+        :param password: ActiveMQ password
+        :param queues: List of queues to subscribe to
+        """
+        self.host = host
+        self.port = port
+        self.username = username
+        self.password = password
+        self.queues = queues  # List of queues to subscribe to
         self.connection = None
 
-    def connect(self):
+        # Configure SSL
+        self.ssl_ctx = ssl.create_default_context()
+        self.ssl_ctx.check_hostname = False  # Disable hostname verification
+        self.ssl_ctx.verify_mode = ssl.CERT_NONE  # Disable certificate verification
+
+        # logging.basicConfig(level=logging.DEBUG)
+
+    def connect(self, listener):
+        """
+        Establish connection to ActiveMQ and subscribe to queues.
+        :param listener: Listener class instance
+        :return: Active connection
+        """
+        print(f"Connecting to {self.host}:{self.port} as {self.username}...")
+
         if not self.connection or not self.connection.is_connected():
-            self.connection = stomp.Connection([(self.host, self.port)])
-            self.connection.connect(self.username, self.password, wait=True)
+            try:
+                self.connection = stomp.Connection12(
+                    [(self.host, self.port)],
+                    heartbeats=(4000, 4000)  # Optional: Configure heartbeats
+                )
+                self.connection.set_ssl([(self.host, self.port)], self.ssl_ctx)
+
+                if listener:
+                    self.connection.set_listener('', listener)
+
+                self.connection.connect(self.username, self.password, wait=True)
+                print("Connected successfully!")
+            except Exception as e:
+                print(f"Error connecting to ActiveMQ: {e}")
+                raise
+
         return self.connection
 
     def disconnect(self):
+        """
+        Disconnect from ActiveMQ.
+        """
         if self.connection and self.connection.is_connected():
             self.connection.disconnect()
+            print("Disconnected from ActiveMQ.")
             self.connection = None
-
-# def save_post_to_db(post: Post, db: Session):
-#     try:
-#         save_post = convert_to_post(post)
-#         print("Saving...")
-#         db.add(save_post)
-#         db.commit()
-#     except Exception as e:
-#         print(f"Failed to save hero to database: {e}")
-#
-# def sanitize_post(body):
-#
-#     post_data = json.loads(body)  # Parse the JSON string to a dictionary
-#     post = Post(**post_data) # Cast dictionary to Post
-#     return post

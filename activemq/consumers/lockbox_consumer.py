@@ -7,9 +7,9 @@ from .consumer import Consumer
 
 
 class LockBoxConsumer(Consumer):
-    def __init__(self):
+    def __init__(self, elis_producer):
         super().__init__("/queue/lockbox")
-        self.elis_producer = ElisProducer()
+        self.elis_producer = elis_producer
 
     def process_message(self, message: str):
         print(f"Lockbox consumer received: {message}")

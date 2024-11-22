@@ -17,3 +17,4 @@ Commands can be found in Makefile
 ## References
 
 - [docker-image](https://hub.docker.com/r/symptoma/activemq)
+- [active-mq](https://aws.amazon.com/blogs/aws/amazon-mq-managed-message-broker-service-for-activemq/)
