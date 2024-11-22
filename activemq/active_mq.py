@@ -1,10 +1,11 @@
 import stomp
-import json
-from sqlalchemy.orm import Session
+import ssl
 
-from dao.model import Post, convert_to_post
 from utils.env_variables import ACTIVEMQ_USER, ACTIVEMQ_PASSWORD, ACTIVEMQ_PORT, ACTIVEMQ_HOST
 
+ssl_ctx = ssl.create_default_context()
+ssl_ctx.check_hostname = False
+ssl_ctx.verify_mode = ssl.CERT_NONE
 
 class ActiveMQ:
     def __init__(self):
@@ -17,25 +18,12 @@ class ActiveMQ:
     def connect(self):
         if not self.connection or not self.connection.is_connected():
             self.connection = stomp.Connection([(self.host, self.port)])
+            self.connection.set_ssl([(self.host, self.port)], ssl_ctx)
             self.connection.connect(self.username, self.password, wait=True)
+            print("Connected to ActiveMQ")
         return self.connection
 
     def disconnect(self):
         if self.connection and self.connection.is_connected():
             self.connection.disconnect()
             self.connection = None
-
-# def save_post_to_db(post: Post, db: Session):
-#     try:
-#         save_post = convert_to_post(post)
-#         print("Saving...")
-#         db.add(save_post)
-#         db.commit()
-#     except Exception as e:
-#         print(f"Failed to save hero to database: {e}")
-#
-# def sanitize_post(body):
-#
-#     post_data = json.loads(body)  # Parse the JSON string to a dictionary
-#     post = Post(**post_data) # Cast dictionary to Post
-#     return post

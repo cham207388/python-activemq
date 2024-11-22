@@ -5,10 +5,10 @@ active-down:
 	docker-compose down -v
 
 app:
-	uvicorn main:app --reload
+	uvicorn main-producer:app --reload
 
 producer:
-	uvicorn main:app --reload
+	uvicorn main-producer:app --reload
 
 consumer:
 	python consumer_runner.py
