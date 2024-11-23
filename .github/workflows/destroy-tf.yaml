@@ -1,0 +1,19 @@
+name: Destroy Terraform
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform-destroy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1 - Checkout code
+        uses: actions/checkout@v4
+
+      - name: 2 - destroy infra
+        uses: cham207388/github-custom-actions/terraform-destroy@main
+        with:
+          directory: ./terraform
+          aws-region: us-east-2
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}

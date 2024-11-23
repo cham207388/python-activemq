@@ -11,8 +11,8 @@ resource "aws_mq_broker" "activemq" {
   subnet_ids = [var.subnet_id]
 
   user {
-    username = var.mq_username
-    password = var.mq_password
+    username = var.amq_username
+    password = var.amq_password
   }
 
   logs {
