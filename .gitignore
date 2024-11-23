@@ -5,6 +5,7 @@
 **/.DS_Store
 **/__pycache__/
 **/terraform.tfstate
+**/.terraform.tfstate.lock.info
 **/terraform.tfvars
 **/.terraform/
 **/.terraform.lock.hcl
