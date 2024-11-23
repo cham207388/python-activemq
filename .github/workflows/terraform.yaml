@@ -1,12 +1,12 @@
 name: Deploy AMQ Infra
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - 2.1-two-queues-amz-mq
+#  push:
+#    branches:
+#      - 2.1-two-queues-amz-mq
 
 jobs:
-  docker-and-terraform:
+  amq-terraform:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
