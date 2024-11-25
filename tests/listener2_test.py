@@ -10,8 +10,13 @@ class TestMyListener(unittest.TestCase):
         mock_lockbox_consumer = MagicMock()
         mock_elis_consumer = MagicMock()
 
+        consumers = {
+            "/queue/lockbox": mock_lockbox_consumer,
+            "/queue/elis": mock_elis_consumer,
+        }
+
         # Create MyListener instance with mocks
-        listener = MyListener(connection, lockbox_consumer=mock_lockbox_consumer, elis_consumer=mock_elis_consumer)
+        listener = MyListener(connection, consumers)
 
         # Verify the connection is set
         self.assertEqual(listener.connection, connection)
@@ -30,8 +35,13 @@ class TestMyListener(unittest.TestCase):
         mock_lockbox_consumer = MagicMock()
         mock_elis_consumer = MagicMock()
 
-        # Create MyListener instance
-        listener = MyListener(connection, lockbox_consumer=mock_lockbox_consumer, elis_consumer=mock_elis_consumer)
+        consumers = {
+            "/queue/lockbox": mock_lockbox_consumer,
+            "/queue/elis": mock_elis_consumer,
+        }
+
+        # Create MyListener instance with mocks
+        listener = MyListener(connection, consumers)
 
         # Mock a frame
         frame = MagicMock()
@@ -50,8 +60,13 @@ class TestMyListener(unittest.TestCase):
         mock_lockbox_consumer = MagicMock()
         mock_elis_consumer = MagicMock()
 
-        # Create MyListener instance
-        listener = MyListener(connection, lockbox_consumer=mock_lockbox_consumer, elis_consumer=mock_elis_consumer)
+        consumers = {
+            "/queue/lockbox": mock_lockbox_consumer,
+            "/queue/elis": mock_elis_consumer,
+        }
+
+        # Create MyListener instance with mocks
+        listener = MyListener(connection, consumers)
 
         # Mock a frame with a valid destination
         frame = MagicMock()
@@ -71,8 +86,13 @@ class TestMyListener(unittest.TestCase):
         mock_lockbox_consumer = MagicMock()
         mock_elis_consumer = MagicMock()
 
-        # Create MyListener instance
-        listener = MyListener(connection, lockbox_consumer=mock_lockbox_consumer, elis_consumer=mock_elis_consumer)
+        consumers = {
+            "/queue/lockbox": mock_lockbox_consumer,
+            "/queue/elis": mock_elis_consumer,
+        }
+
+        # Create MyListener instance with mocks
+        listener = MyListener(connection, consumers)
 
         # Mock a frame with an unknown destination
         frame = MagicMock()

@@ -28,5 +28,7 @@ class ConsumerRunner:
 
 
 if __name__ == "__main__":
-    runner = ConsumerRunner(lockbox_consumer=LockBoxConsumer(), elis_consumer=ElisConsumer())
+    lockbox_consumer = LockBoxConsumer()
+    elis_consumer = ElisConsumer()
+    runner = ConsumerRunner(lockbox_consumer, elis_consumer)
     runner.start()

@@ -2,12 +2,9 @@ from stomp import ConnectionListener
 
 
 class MyListener(ConnectionListener):
-    def __init__(self, connection, lockbox_consumer, elis_consumer):
+    def __init__(self, connection, consumers):
         self.connection = connection
-        self.consumers = {
-            "/queue/lockbox": lockbox_consumer,
-            "/queue/elis": elis_consumer,
-        }
+        self.consumers = consumers
 
     def on_error(self, frame):
         print(f"Error: {frame.body}")
