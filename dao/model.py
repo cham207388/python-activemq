@@ -36,8 +36,6 @@ class PostResponse(BaseModel):
     id: int
     title: str
     content: str
-    # published: bool
-    # created_at: datetime
 
     # Enable compatibility with ORM models (e.g., SQLModel)
     model_config = {

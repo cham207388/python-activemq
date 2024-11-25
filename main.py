@@ -2,7 +2,7 @@ from typing import List
 from sqlalchemy import select
 from fastapi import FastAPI, HTTPException
 from dao.model import Post, PostResponse, PostCreate
-from producer import send_message
+from producers.my_producer import LockBoxProducer
 from dao.database import Base, engine
 from dao.dependencies import db_dependency
 
@@ -11,15 +11,16 @@ app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
 print("Database initialized successfully.")
+producer = LockBoxProducer()
 
-@app.post("/produce/", response_model=PostResponse)
-def publish_message(post: PostCreate) -> PostResponse:
+@app.post("/produce/")
+def publish_message(post: PostCreate):
     print("Publishing...")
     print(f'Request: {post}')
     json_post = post.model_dump_json()
-    send_message(json_post)
+    producer.send_message(json_post)
     print(f"Response: {post}")
-    return PostResponse.model_validate(post)
+    return "Success"
 
 
 @app.get("/posts/", response_model=List[PostResponse])
