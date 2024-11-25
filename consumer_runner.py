@@ -5,17 +5,19 @@ from activemq.consumers.lockbox_consumer import LockBoxConsumer
 from activemq.listener import MyListener
 
 class ConsumerRunner:
-    def __init__(self, lockbox_consumer, elis_consumer):
+    def __init__(self, *consumers):
         self.active_mq = ActiveMQ()
-        self.lockbox_consumer = lockbox_consumer
-        self.elis_consumer = elis_consumer
+        self.consumers = {consumer.queue: consumer for consumer in consumers}
 
     def start(self):
         connection = self.active_mq.connect()
-        listener = MyListener(connection, )
+        listener = MyListener(connection, self.consumers)
         connection.set_listener("", listener)
 
-        # Subscribe to queues
+        for queue, consumer in self.consumers.items():
+            print(f"Subscribing to queue: {queue}, consumer: {consumer}")
+
+        # # Subscribe to queues
         connection.subscribe(destination="/queue/lockbox", id=1, ack="auto")
         connection.subscribe(destination="/queue/elis", id=2, ack="auto")
 
