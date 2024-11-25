@@ -1,14 +1,18 @@
 import time
 from activemq.active_mq import ActiveMQ
+from activemq.consumers.elis_consumer import ElisConsumer
+from activemq.consumers.lockbox_consumer import LockBoxConsumer
 from activemq.listener import MyListener
 
 class ConsumerRunner:
-    def __init__(self):
+    def __init__(self, lockbox_consumer, elis_consumer):
         self.active_mq = ActiveMQ()
+        self.lockbox_consumer = lockbox_consumer
+        self.elis_consumer = elis_consumer
 
     def start(self):
         connection = self.active_mq.connect()
-        listener = MyListener(connection)
+        listener = MyListener(connection, )
         connection.set_listener("", listener)
 
         # Subscribe to queues
@@ -24,5 +28,5 @@ class ConsumerRunner:
 
 
 if __name__ == "__main__":
-    runner = ConsumerRunner()
+    runner = ConsumerRunner(lockbox_consumer=LockBoxConsumer(), elis_consumer=ElisConsumer())
     runner.start()

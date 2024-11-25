@@ -1,14 +1,12 @@
 from stomp import ConnectionListener
-from .consumers.elis_consumer import ElisConsumer
-from .consumers.lockbox_consumer import LockBoxConsumer
 
 
 class MyListener(ConnectionListener):
-    def __init__(self, connection):
+    def __init__(self, connection, lockbox_consumer, elis_consumer):
         self.connection = connection
         self.consumers = {
-            "/queue/lockbox": LockBoxConsumer(),
-            "/queue/elis": ElisConsumer(),
+            "/queue/lockbox": lockbox_consumer,
+            "/queue/elis": elis_consumer,
         }
 
     def on_error(self, frame):
