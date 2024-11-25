@@ -1,7 +1,7 @@
 import json
 
 from sqlalchemy import Column, Integer, String, Boolean, TIMESTAMP, text
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from dao.database import Base
 
 
@@ -24,13 +24,14 @@ class PostCreate(BaseModel):
     title: str = Field(min_length=3, max_length=50)
     content: str = Field(min_length=3, max_length=50)
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             'example': {
                 'title': 'Peace',
                 'content': 'Cooler than Dad',
             }
         }
+    )
 
 class PostResponse(BaseModel):
     id: int

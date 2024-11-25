@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import MagicMock, patch
-from activemq.listener import MyListener  # Replace with the actual path
+from activemq.listener import MyListener
 
 
 class TestMyListener(unittest.TestCase):
@@ -106,7 +106,6 @@ class TestMyListener(unittest.TestCase):
         # Assert no consumer's process_message method was called
         mock_lockbox_consumer.process_message.assert_not_called()
         mock_elis_consumer.process_message.assert_not_called()
-    #
 
-if __name__ == "__main__":
-    unittest.main()
+# if __name__ == "__main__":
+#     unittest.main()
