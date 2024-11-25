@@ -18,7 +18,7 @@ class ActiveMQ:
     def connect(self):
         if not self.connection or not self.connection.is_connected():
             self.connection = stomp.Connection([(self.host, self.port)])
-            self.connection.set_ssl([(self.host, self.port)], ssl_ctx)
+            # self.connection.set_ssl([(self.host, self.port)], ssl_ctx)
             self.connection.connect(self.username, self.password, wait=True)
             print("Connected to ActiveMQ")
         return self.connection
