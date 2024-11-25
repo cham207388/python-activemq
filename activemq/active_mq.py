@@ -15,6 +15,7 @@ class ActiveMQ:
         self.connection = None
 
     def connect(self):
+        print(f"Connecting host: {self.host}, port: {self.port}, username: {self.username} {self.password}")
         if not self.connection or not self.connection.is_connected():
             self.connection = stomp.Connection([(self.host, self.port)])
             self.connection.connect(self.username, self.password, wait=True)
