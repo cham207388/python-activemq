@@ -1,6 +1,4 @@
 from stomp import ConnectionListener
-from .consumers.elis_consumer import ElisConsumer
-from .consumers.lockbox_consumer import LockBoxConsumer
 
 
 class MyListener(ConnectionListener):

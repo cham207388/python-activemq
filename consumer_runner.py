@@ -1,7 +1,7 @@
 import time
 from activemq.active_mq import ActiveMQ
-from activemq.consumers.elis_consumer import ElisConsumer
-from activemq.consumers.lockbox_consumer import LockBoxConsumer
+from consumers.elis_consumer import ElisConsumer
+from consumers.lockbox_consumer import LockBoxConsumer
 from activemq.listener import MyListener
 
 
@@ -16,7 +16,7 @@ class ConsumerRunner:
         self.connection.set_listener("", listener)
 
         for queue, consumer in self.consumers.items():
-            print(f"Queue: {queue}, consumer: {consumer}")
+            print(f"Queue: {queue}, consumer: {type(consumer).__name__}")
             self.connection.subscribe(destination=queue, id=queue, ack="auto")
 
         print("Listening for messages...")

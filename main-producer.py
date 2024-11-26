@@ -2,7 +2,7 @@ from typing import List
 from sqlalchemy import select
 from fastapi import FastAPI, HTTPException
 
-from activemq.producers.lockbox_producer import LockBoxProducer
+from producers import LockBoxProducer
 from dao.model import Post, PostResponse, PostCreate
 from dao.database import Base, engine
 from dao.dependencies import db_dependency
