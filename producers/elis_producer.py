@@ -1,14 +1,13 @@
-from activemq.setup import ActiveMQ
 from .producer import Producer
 
 class ElisProducer(Producer):
-    def __init__(self):
+    def __init__(self, connection):
         super().__init__("/queue/elis")
-        self.active_mq = ActiveMQ()
+        self.connection = connection
 
     def send_message(self, message: str):
         try:
-            connection = self.active_mq.connect()
+            connection = self.connection
             connection.send(body=message, destination=self.queue)
             print(f"Message sent to {self.queue}: {message}")
             connection.disconnect()

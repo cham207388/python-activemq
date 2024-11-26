@@ -17,3 +17,9 @@ Commands can be found in Makefile
 ## References
 
 - [docker-image](https://hub.docker.com/r/symptoma/activemq)
+
+## Pytest
+
+- pip install -e
+  - install missing dependencies
+- 

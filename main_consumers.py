@@ -8,7 +8,6 @@ from producers.elis_producer import ElisProducer
 
 class ConsumerRunner:
     def __init__(self, connection, *consumers):
-        self.active_mq = ActiveMQ()
         self.consumers = {consumer.queue: consumer for consumer in consumers}
         self.connection = connection
 
@@ -29,9 +28,9 @@ class ConsumerRunner:
 
 
 if __name__ == "__main__":
-    elis_producer = ElisProducer()
+    activemq = ActiveMQ()
+    elis_producer = ElisProducer(activemq.connect())
     lockbox_consumer = LockboxConsumer(elis_producer)
     elis_consumer = ElisConsumer()
-    activemq = ActiveMQ()
     runner = ConsumerRunner(activemq.connect(),lockbox_consumer, elis_consumer)
     runner.start()

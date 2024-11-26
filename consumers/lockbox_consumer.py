@@ -2,7 +2,6 @@ import json
 from datetime import datetime
 from tzlocal import get_localzone
 
-from producers.elis_producer import ElisProducer
 from .consumer import Consumer
 
 

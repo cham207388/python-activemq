@@ -1,4 +1,3 @@
-from activemq.setup import ActiveMQ
 from .producer import Producer
 
 
