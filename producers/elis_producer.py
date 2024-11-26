@@ -1,4 +1,4 @@
-from activemq.active_mq import ActiveMQ
+from activemq.setup import ActiveMQ
 from .producer import Producer
 
 class ElisProducer(Producer):

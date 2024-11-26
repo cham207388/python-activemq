@@ -1,5 +1,5 @@
 import time
-from activemq.active_mq import ActiveMQ
+from activemq.setup import ActiveMQ
 from consumers.elis_consumer import ElisConsumer
 from consumers.lockbox_consumer import LockBoxConsumer
 from activemq.listener import MyListener

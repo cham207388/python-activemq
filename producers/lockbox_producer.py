@@ -1,8 +1,8 @@
-from activemq.active_mq import ActiveMQ
+from activemq.setup import ActiveMQ
 from .producer import Producer
 
 
-class LockBoxProducer(Producer):
+class LockboxProducer(Producer):
     def __init__(self):
         super().__init__("/queue/lockbox")
         self.active_mq = ActiveMQ()

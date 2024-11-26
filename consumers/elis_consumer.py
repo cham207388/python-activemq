@@ -1,6 +1,6 @@
 import json
 from dao.database import SessionLocal
-from dao.model import convert_to_post, to_post
+from dao.model import to_post
 from .consumer import Consumer
 
 
