@@ -9,3 +9,4 @@
 **/terraform.tfvars
 **/.terraform/
 **/.terraform.lock.hcl
+/python_activemq.egg-info/
