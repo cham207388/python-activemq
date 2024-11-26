@@ -1,52 +1,64 @@
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.5.0"]
+build-backend = "poetry.core.masonry.api"
 
-[project]
-name = "python-activemq"  # Replace with your project name
+[tool.poetry]
+name = "activemq_project"
 version = "0.1.0"
 description = "A Python project for ActiveMQ integration"
-authors = [{ name = "Peace Love", email = "peace.love@gmail.com" }]
-dependencies = [
-    "annotated-types==0.7.0",
-    "anyio==4.6.2.post1",
-    "boto3==1.35.66",
-    "botocore==1.35.66",
-    "cffi==1.17.1",
-    "click==8.1.7",
-    "cryptography==43.0.3",
-    "docopt==0.6.2",
-    "fastapi==0.115.5",
-    "greenlet==3.1.1",
-    "h11==0.14.0",
-    "idna==3.10",
-    "iniconfig==2.0.0",
-    "jmespath==1.0.1",
-    "packaging==24.2",
-    "pi==0.1.2",
-    "pluggy==1.5.0",
-    "psycopg2-binary==2.9.10",
-    "pycparser==2.22",
-    "pydantic==2.9.2",
-    "pydantic_core==2.23.4",
-    "PyMySQL==1.1.1",
-    "pytest==8.3.3",
-    "python-dateutil==2.9.0.post0",
-    "python-dotenv==1.0.1",
-    "s3transfer==0.10.4",
-    "six==1.16.0",
-    "sniffio==1.3.1",
-    "SQLAlchemy==2.0.36",
-    "sqlmodel==0.0.22",
-    "starlette==0.41.3",
-    "stomp.py==8.2.0",
-    "typing_extensions==4.12.2",
-    "tzlocal==5.2",
-    "urllib3==2.2.3",
-    "uvicorn==0.32.0",
-    "websocket-client==1.8.0",
-]
-requires-python = ">=3.7"
+authors = ["Your Name <cham.abc1@gmail.com>"]
+readme = "README.md"  # Path to your README file
+license = "MIT"
+homepage = "https://github.com/your-repo/python-activemq"
+repository = "https://github.com/your-repo/python-activemq"
+keywords = ["activemq", "python"]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+annotated-types = "0.7.0"
+anyio = "4.6.2.post1"
+boto3 = "1.35.66"
+botocore = "1.35.66"
+cffi = "1.17.1"
+click = "8.1.7"
+cryptography = "43.0.3"
+docopt = "0.6.2"
+fastapi = "0.115.5"
+greenlet = "3.1.1"
+h11 = "0.14.0"
+idna = "3.10"
+iniconfig = "2.0.0"
+jmespath = "1.0.1"
+packaging = "24.2"
+pi = "0.1.2"
+pluggy = "1.5.0"
+psycopg2-binary = "2.9.10"
+pycparser = "2.22"
+pydantic = "2.9.2"
+pydantic_core = "2.23.4"
+PyMySQL = "1.1.1"
+python-dateutil = "2.9.0.post0"
+python-dotenv = "1.0.1"
+s3transfer = "0.10.4"
+six = "1.16.0"
+sniffio = "1.3.1"
+SQLAlchemy = "2.0.36"
+sqlmodel = "0.0.22"
+starlette = "0.41.3"
+#stomp.py = "8.2.0"
+typing_extensions = "4.12.2"
+tzlocal = "5.2"
+urllib3 = "2.2.3"
+uvicorn = "0.32.0"
+websocket-client = "1.8.0"
+stomp-py = "^8.2.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "8.3.3"
+pytest-cov = "^4.0.0"  # For test coverage
+black = "^23.0"        # For code formatting
+mypy = "^1.4.0"        # For static type checking
+flake8 = "^6.1.0"      # For linting
 
 [tool.setuptools.packages.find]
 where = ["."]
