@@ -6,17 +6,16 @@ from producers.elis_producer import ElisProducer
 from .consumer import Consumer
 
 
-class LockBoxConsumer(Consumer):
-    def __init__(self):
+class LockboxConsumer(Consumer):
+    def __init__(self, producer):
         super().__init__("/queue/lockbox")
-        self.elis_producer = ElisProducer()
+        self.elis_producer = producer
 
     def process_message(self, message: str):
         print(f"Lockbox consumer received: {message}")
         try:
             # Modify the message
             message_data = json.loads(message)
-            # message_data["timestamp"] = datetime.now(timezone.utc).strftime("%d:%m:%Y %H:%M:%S")
             local_timezone = get_localzone()
             message_data["timestamp"] = datetime.now(local_timezone).strftime("%d:%m:%Y %H:%M:%S")
             modified_message = json.dumps(message_data)

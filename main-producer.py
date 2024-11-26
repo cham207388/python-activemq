@@ -6,18 +6,18 @@ from producers.lockbox_producer import LockboxProducer
 from dao.model import Post, PostResponse, PostCreate
 from dao.database import Base, engine
 from dao.dependencies import db_dependency
+from activemq.setup import ActiveMQ
 
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
 print("Database initialized successfully.")
 
-
-lockbox_producer = LockboxProducer()
+activemq = ActiveMQ()
+lockbox_producer = LockboxProducer(activemq.connect())
 
 @app.post("/produce/")
 def publish_message(post: PostCreate):
-    print("Publishing...")
     print(f'Request: {post}')
     json_post = post.model_dump_json()
     lockbox_producer.send_message(json_post)
