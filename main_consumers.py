@@ -29,8 +29,9 @@ class ConsumerRunner:
 
 if __name__ == "__main__":
     activemq = ActiveMQ()
-    elis_producer = ElisProducer(activemq.connect())
+    connection = activemq.connect()
+    elis_producer = ElisProducer(connection)
     lockbox_consumer = LockboxConsumer(elis_producer)
     elis_consumer = ElisConsumer()
-    runner = ConsumerRunner(activemq.connect(),lockbox_consumer, elis_consumer)
+    runner = ConsumerRunner(connection,lockbox_consumer, elis_consumer)
     runner.start()
