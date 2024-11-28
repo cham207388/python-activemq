@@ -1,0 +1,13 @@
+site_name: Python ActiveMQ
+nav:
+  - Home: index.md
+  - About: about.md
+
+repo_name: cham207388/python-activemq
+repo_url: https://github.com/cham207388/python-activemq
+
+
+#plugins:
+#- mkdocstrings:
+#    default_handler: python
+theme: mkdocs

@@ -22,3 +22,5 @@ class ActiveMQ:
         if self.connection and self.connection.is_connected():
             self.connection.disconnect()
             self.connection = None
+
+connect = ActiveMQ().connect()

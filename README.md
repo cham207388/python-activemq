@@ -22,4 +22,9 @@ Commands can be found in Makefile
 
 - pip install -e
   - install missing dependencies
+
+
+## Documentation
+
+- [medium resource 1](https://medium.com/towards-data-science/documenting-python-projects-with-mkdocs-60e26b64380e)
 - 

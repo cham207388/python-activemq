@@ -22,3 +22,8 @@ stop-pg:
 freeze:
 	pip freeze > requirements.txt
 
+venv:
+	python3 -m venv .venv
+
+source:
+	source .venv/bin/activate

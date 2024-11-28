@@ -1,5 +1,5 @@
 import time
-from activemq.setup import ActiveMQ
+from activemq.setup import connect
 from consumers.elis_consumer import ElisConsumer
 from consumers.lockbox_consumer import LockboxConsumer
 from activemq.listener import MyListener
@@ -28,9 +28,8 @@ class ConsumerRunner:
 
 
 if __name__ == "__main__":
-    activemq = ActiveMQ()
-    elis_producer = ElisProducer(activemq.connect())
+    elis_producer = ElisProducer(connect)
     lockbox_consumer = LockboxConsumer(elis_producer)
     elis_consumer = ElisConsumer()
-    runner = ConsumerRunner(activemq.connect(),lockbox_consumer, elis_consumer)
+    runner = ConsumerRunner(connect, lockbox_consumer, elis_consumer)
     runner.start()

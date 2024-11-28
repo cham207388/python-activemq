@@ -36,7 +36,3 @@ class TestLockboxProducer(unittest.TestCase):
         self.mock_connection.send.assert_called_once_with(body=message, destination="/queue/lockbox")
         mock_print.assert_any_call("Error sending message to /queue/lockbox: Connection error")
         self.mock_connection.disconnect.assert_not_called()
-
-
-if __name__ == "__main__":
-    unittest.main()
